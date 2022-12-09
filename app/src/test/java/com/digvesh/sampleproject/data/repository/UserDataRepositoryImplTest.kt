@@ -7,7 +7,7 @@ import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapper
 import com.digvesh.sampleproject.data.model.User
 import com.digvesh.sampleproject.data.model.UsersListResponse
 import com.digvesh.sampleproject.domain.model.UserInfo
-import com.digvesh.sampleproject.presentation.CoroutineTestRule
+import com.digvesh.sampleproject.presentation.CoroutineScopeTestWatcher
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -34,7 +34,7 @@ class UserDataRepositoryImplTest : TestCase() {
     private lateinit var userListAPIResponseMapper: UserListAPIResponseMapper
 
     @get:Rule
-    val mainCoroutineRule = CoroutineTestRule()
+    val mainCoroutineRule = CoroutineScopeTestWatcher()
 
     public override fun setUp() {
         super.setUp()
@@ -66,9 +66,9 @@ class UserDataRepositoryImplTest : TestCase() {
         runTest {
             val response = mockk<Response<UsersListResponse>>()
             coEvery { response.isSuccessful } returns false
-            coEvery { response.message() } returns "errorString"
+            coEvery { response.message() } returns errorString
             coEvery { userDataService.getUsers(1) } returns response
-            assertEquals("errorString", userDataRepository.getUserList(1).first().msg)
+            assertEquals(errorString, userDataRepository.getUserList(1).first().msg)
         }
     }
 

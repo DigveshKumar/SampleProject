@@ -28,7 +28,7 @@ class HomeViewModelTest : TestCase() {
     private lateinit var viewModel: HomeViewModel
 
     @get:Rule
-    val mainCoroutineRule = CoroutineTestRule()
+    val mainCoroutineRule = CoroutineScopeTestWatcher()
 
     public override fun setUp() {
         super.setUp()

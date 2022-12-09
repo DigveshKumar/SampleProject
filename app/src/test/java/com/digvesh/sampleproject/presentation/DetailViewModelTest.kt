@@ -28,7 +28,7 @@ class DetailViewModelTest : TestCase() {
     private lateinit var viewModel: DetailViewModel
 
     @get:Rule
-    val mainCoroutineRule = CoroutineTestRule()
+    val mainCoroutineRule = CoroutineScopeTestWatcher()
 
     public override fun setUp() {
         super.setUp()
