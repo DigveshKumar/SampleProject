@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+apply from: "$project.rootDir/versionConfig/version.gradle"
+
+android {
+    compileSdk projectCompileSdkVersion
+
+    defaultConfig {
+        applicationId "com.digvesh.sampleproject"
+        minSdk projectMinSdkVersion
+        targetSdk projectTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(":network")
+    implementation project(":core")
+    implementation("androidx.paging:paging-runtime:$pagingVersion")
+    implementation "androidx.core:core-ktx:${ktxCoreVersion}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutineVersion}"
+    implementation "androidx.activity:activity-ktx:${activityKtxVersion}"
+    implementation "androidx.annotation:annotation:${annotationVersion}"
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${glideVersion}"
+    implementation "androidx.constraintlayout:constraintlayout:${constraintlayoutVersion}"
+    implementation "androidx.navigation:navigation-fragment:${navigationVersion}"
+    implementation "androidx.navigation:navigation-ui-ktx:${navigationVersion}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${gsonVersion}"
+    implementation "com.google.dagger:hilt-android:${hiltVersion}"
+    kapt "com.google.dagger:hilt-android-compiler:${hiltVersion}"
+    kapt "androidx.hilt:hilt-compiler:${hiltCompilerVersion}"
+    testImplementation "io.mockk:mockk:${mockkVersion}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutineTestVersion}"
+    testImplementation "androidx.arch.core:core-testing:${coreTestVersion}"
+    androidTestImplementation "androidx.test:rules:${testRuleVersion}"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:${espressoVersion}"
+}
