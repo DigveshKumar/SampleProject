@@ -3,9 +3,10 @@ package com.digvesh.sampleproject.data.repository
 import com.digvesh.sampleproject.Constants.errorString
 import com.digvesh.sampleproject.Constants.userId
 import com.digvesh.sampleproject.data.api.UserDataService
-import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapper
+import com.digvesh.sampleproject.data.mapper.contract.UserListAPIResponseMapper
 import com.digvesh.sampleproject.data.model.User
 import com.digvesh.sampleproject.data.model.UsersListResponse
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
 import com.digvesh.sampleproject.domain.model.UserInfo
 import com.digvesh.sampleproject.presentation.CoroutineScopeTestWatcher
 import io.mockk.MockKAnnotations

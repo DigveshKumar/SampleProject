@@ -1,4 +1,4 @@
-package com.digvesh.sampleproject.data.mapper
+package com.digvesh.sampleproject.data.mapper.contract
 
 import com.digvesh.sampleproject.data.model.Data
 import com.digvesh.sampleproject.data.model.User

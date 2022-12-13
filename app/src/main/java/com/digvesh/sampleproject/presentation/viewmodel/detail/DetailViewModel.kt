@@ -3,11 +3,11 @@ package com.digvesh.sampleproject.presentation.viewmodel.detail
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.digvesh.core.presentation.BaseViewModel
-import com.digvesh.core.presentation.ViewState
+import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.R
 import com.digvesh.sampleproject.domain.model.UserInfo
-import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
+import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

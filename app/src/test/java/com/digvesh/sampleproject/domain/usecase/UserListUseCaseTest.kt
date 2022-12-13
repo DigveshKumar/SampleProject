@@ -1,7 +1,7 @@
 package com.digvesh.sampleproject.domain.usecase
 
 import com.digvesh.sampleproject.Constants.page
-import com.digvesh.sampleproject.data.repository.UserDataRepository
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
 import com.digvesh.sampleproject.domain.usecase.home.UserListUseCase
 import com.digvesh.sampleproject.domain.usecase.home.UserListUseCaseImpl
 import io.mockk.MockKAnnotations

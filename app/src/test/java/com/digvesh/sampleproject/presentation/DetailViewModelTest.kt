@@ -5,7 +5,7 @@ import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.Constants.errorRetrievingData
 import com.digvesh.sampleproject.Constants.userId
 import com.digvesh.sampleproject.domain.model.UserInfo
-import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
+import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
 import com.digvesh.sampleproject.presentation.viewmodel.detail.DetailViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

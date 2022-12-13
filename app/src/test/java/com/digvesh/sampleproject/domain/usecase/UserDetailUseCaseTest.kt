@@ -1,8 +1,8 @@
 package com.digvesh.sampleproject.domain.usecase
 
 import com.digvesh.sampleproject.Constants.userId
-import com.digvesh.sampleproject.data.repository.UserDataRepository
-import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
+import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
 import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCaseImpl
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

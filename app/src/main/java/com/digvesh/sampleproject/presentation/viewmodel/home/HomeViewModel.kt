@@ -3,7 +3,7 @@ package com.digvesh.sampleproject.presentation.viewmodel.home
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.digvesh.core.presentation.BaseViewModel
-import com.digvesh.core.presentation.ViewState
+import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.R
 import com.digvesh.sampleproject.domain.model.UserInfo

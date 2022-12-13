@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.digvesh.core.presentation.ViewState
+import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.core.presentation.ui.BaseFragment
 import com.digvesh.sampleproject.R
 import com.digvesh.sampleproject.core.Constants.PARAM_USER_ID

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SampleProject</string>
+    <string name="app_name">SimpleUserDataApp</string>
     <string name="label_users">Users</string>
     <string name="data_error">Error in retrieving data</string>
     <string name="content_desc_avatar_image">Avatar Image</string>

@@ -1,5 +1,6 @@
 package com.digvesh.sampleproject.data.mapper
 
+import com.digvesh.sampleproject.data.mapper.contract.UserListAPIResponseMapper
 import com.digvesh.sampleproject.data.model.Data
 import com.digvesh.sampleproject.data.model.User
 import com.digvesh.sampleproject.data.model.UsersListResponse

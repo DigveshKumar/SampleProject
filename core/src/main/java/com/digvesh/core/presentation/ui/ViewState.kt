@@ -1,4 +1,4 @@
-package com.digvesh.core.presentation
+package com.digvesh.core.presentation.ui
 
 sealed class ViewState<T>(val result: T, val msg: String, val isLoading: Boolean) {
     class StateSuccess<T>(data: T) : ViewState<T>(data, "", false)

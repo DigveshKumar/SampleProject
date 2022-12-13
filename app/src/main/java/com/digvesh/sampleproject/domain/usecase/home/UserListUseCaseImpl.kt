@@ -1,6 +1,6 @@
 package com.digvesh.sampleproject.domain.usecase.home
 
-import com.digvesh.sampleproject.data.repository.UserDataRepository
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
 import javax.inject.Inject
 
 class UserListUseCaseImpl @Inject constructor(private val userDataRepository: UserDataRepository) :

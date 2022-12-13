@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.digvesh.core.presentation.ViewState
+import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.core.presentation.ui.BaseFragment
 import com.digvesh.sampleproject.core.Constants.PARAM_USER_ID
 import com.digvesh.sampleproject.databinding.FragmentDetailBinding

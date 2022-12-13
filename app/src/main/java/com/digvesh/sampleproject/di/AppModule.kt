@@ -2,11 +2,11 @@ package com.digvesh.sampleproject.di
 
 import com.digvesh.network.client.RestClientProvider
 import com.digvesh.sampleproject.data.api.UserDataService
-import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapper
+import com.digvesh.sampleproject.data.mapper.contract.UserListAPIResponseMapper
 import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapperImpl
-import com.digvesh.sampleproject.data.repository.UserDataRepository
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
 import com.digvesh.sampleproject.data.repository.UserDataRepositoryImpl
-import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
+import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
 import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCaseImpl
 import com.digvesh.sampleproject.domain.usecase.home.UserListUseCase
 import com.digvesh.sampleproject.domain.usecase.home.UserListUseCaseImpl
@@ -21,8 +21,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-
-
 
     @Provides
     fun provideHomeScreenUseCase(): UserListUseCase =

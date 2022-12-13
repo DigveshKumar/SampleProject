@@ -2,7 +2,8 @@ package com.digvesh.sampleproject.data.repository
 
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.data.api.UserDataService
-import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapper
+import com.digvesh.sampleproject.data.mapper.contract.UserListAPIResponseMapper
+import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
 import com.digvesh.sampleproject.domain.model.UserInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
