@@ -1,10 +1,10 @@
 package com.digvesh.sampleproject.domain.model
 
 data class UserInfo(
-    var id: Int? = -1,
-    var firstName: String? = "",
-    var lastName: String? = "",
-    var displayName: String? = "",
-    var email: String? = "",
-    var avatarImage: String? = "",
+    val id: Int? = -1,
+    val firstName: String? = "",
+    val lastName: String? = "",
+    val displayName: String? = "",
+    val email: String? = "",
+    val avatarImage: String? = "",
 )

@@ -13,17 +13,18 @@ import com.digvesh.sampleproject.data.model.Data
 import com.digvesh.sampleproject.data.model.Support
 import com.digvesh.sampleproject.data.model.User
 import com.digvesh.sampleproject.data.model.UsersListResponse
+import com.digvesh.sampleproject.domain.model.UserInfo
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase
 
 class UserListAPIResponseMapperTest : TestCase() {
 
-    private lateinit var userListAPIResponseMapper: UserListAPIResponseMapperImpl
+    private lateinit var userListAPIResponseMapper: UserListAPIResponseMapper
 
     public override fun setUp() {
         super.setUp()
-        userListAPIResponseMapper = UserListAPIResponseMapperImpl()
+        userListAPIResponseMapper = UserListAPIResponseMapper()
     }
 
     fun testTransformToUserList() {
@@ -31,6 +32,10 @@ class UserListAPIResponseMapperTest : TestCase() {
             userListAPIResponseMapper.transformToUserList(getUserListResponse()),
             arrayListOf(userListAPIResponseMapper.transformToUserInfo(getUserInfo().data))
         )
+    }
+
+    fun testGetUserInfoFromNullResponse() {
+        assertEquals(UserInfo(), userListAPIResponseMapper.getUserInfo(null))
     }
 
     fun testUserInfo() {

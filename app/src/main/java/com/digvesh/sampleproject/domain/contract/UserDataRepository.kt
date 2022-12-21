@@ -1,4 +1,4 @@
-package com.digvesh.sampleproject.data.repository.contract
+package com.digvesh.sampleproject.domain.contract
 
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.domain.model.UserInfo

@@ -3,9 +3,10 @@ package com.digvesh.sampleproject.presentation
 import android.content.Context
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.Constants.errorRetrievingData
+import com.digvesh.sampleproject.Constants.networkErrorCode
 import com.digvesh.sampleproject.Constants.userId
 import com.digvesh.sampleproject.domain.model.UserInfo
-import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
+import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
 import com.digvesh.sampleproject.presentation.viewmodel.detail.DetailViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -45,25 +46,36 @@ class DetailViewModelTest : TestCase() {
     fun testApiGetUserDetailSuccess() {
         runTest {
             val context = mockk<Context>()
-            coEvery { userDetailUseCase.getUserById(1) } returns (flow {
-                val elixirObj = mockk<UserInfo>()
-                coEvery { elixirObj.id } returns 1
-                emit(ApiResult.Success(elixirObj))
+            coEvery { userDetailUseCase.invoke(1) } returns (flow {
+                val userInfo = mockk<UserInfo>()
+                coEvery { userInfo.id } returns 1
+                emit(ApiResult.Success(userInfo))
             })
             viewModel.fetchUserDetails(context, 1)
         }
-        assertEquals(1, viewModel.viewState.value.result.id)
+        assertEquals(1, (viewModel.viewState.value.result as UserInfo).id)
+    }
+
+    fun testApiGetUserDetailSuccessButUserNull() {
+        runTest {
+            val context = mockk<Context>()
+            coEvery {
+                context.getString(any())
+            } returns errorRetrievingData
+            coEvery { userDetailUseCase.invoke(1) } returns (flow {
+                val userInfo = mockk<UserInfo>()
+                emit(ApiResult.Success(null))
+            })
+            viewModel.fetchUserDetails(context, 1)
+        }
+        assertEquals(-1, (viewModel.viewState.value.result as UserInfo).id)
     }
 
     fun testApiGetUserDetailFail() {
         runTest {
             val context = mockk<Context>()
-            coEvery { userDetailUseCase.getUserById(userId) } returns (flow {
-                emit(
-                    ApiResult.Fail(
-                        errorRetrievingData
-                    )
-                )
+            coEvery { userDetailUseCase.invoke(userId) } returns (flow {
+                emit(ApiResult.Fail(networkErrorCode, errorRetrievingData))
             })
             viewModel.fetchUserDetails(context, userId)
         }
@@ -73,7 +85,7 @@ class DetailViewModelTest : TestCase() {
     fun testApiGetUserDetailLoading() {
         runTest {
             val context = mockk<Context>()
-            coEvery { userDetailUseCase.getUserById(userId) } returns (flow { emit(ApiResult.Pending()) })
+            coEvery { userDetailUseCase.invoke(userId) } returns (flow { emit(ApiResult.Pending()) })
             viewModel.fetchUserDetails(context, userId)
         }
         assertTrue(viewModel.viewState.value.isLoading)

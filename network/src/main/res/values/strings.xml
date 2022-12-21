@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="network_error">Unable to connect to the network. Please check your internet connection and try again.</string>
+    <string name="data_error">Data Error</string>
+</resources>

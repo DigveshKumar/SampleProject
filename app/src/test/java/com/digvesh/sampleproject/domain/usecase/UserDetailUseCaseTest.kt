@@ -1,9 +1,8 @@
 package com.digvesh.sampleproject.domain.usecase
 
 import com.digvesh.sampleproject.Constants.userId
-import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
-import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
-import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCaseImpl
+import com.digvesh.sampleproject.domain.contract.UserDataRepository
+import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -22,13 +21,13 @@ class UserDetailUseCaseTest : TestCase() {
     public override fun setUp() {
         super.setUp()
         MockKAnnotations.init(this)
-        useCase = UserDetailUseCaseImpl(repository)
+        useCase = UserDetailUseCase(repository)
     }
 
     fun testGetUserById() {
         runBlocking {
             coEvery { repository.getUserById(userId) } returns flow {}
-            useCase.getUserById(userId)
+            useCase.invoke(userId)
             coVerify { repository.getUserById(userId) }
         }
     }

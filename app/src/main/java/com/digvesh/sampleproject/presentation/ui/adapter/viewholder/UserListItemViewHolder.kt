@@ -3,7 +3,7 @@ package com.digvesh.sampleproject.presentation.ui.adapter.viewholder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.digvesh.core.extensions.loadImage
 import com.digvesh.sampleproject.R
 import com.digvesh.sampleproject.databinding.UserListItemViewBinding
 import com.digvesh.sampleproject.domain.model.UserInfo
@@ -25,7 +25,7 @@ class UserListItemViewHolder(
     private fun updateViews(user: UserInfo) {
         this.user = user
         binding.userName.text = user.displayName
-        Glide.with(binding.avatarImage).load(user.avatarImage).into(binding.avatarImage)
+        loadImage(itemView.context, user.avatarImage, binding.avatarImage)
         binding.root.setOnClickListener {
             onClickListener.onClick(user.id)
         }

@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit
 object RestClientProvider {
 
     private const val BASE_URL = "https://reqres.in/api/"
-    private const val connectTimeout : Long = 60
-    private const val readTimeout : Long = 60
-    private const val writeTimeout : Long = 60
+    private const val connectTimeout: Long = 60
+    private const val readTimeout: Long = 60
+    private const val writeTimeout: Long = 60
 
     fun buildRestClient(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL)
@@ -21,8 +21,8 @@ object RestClientProvider {
             .build()
     }
 
-    fun getOkHttpClient() : OkHttpClient {
-        val okHttpClient : OkHttpClient.Builder = OkHttpClient().newBuilder()
+    private fun getOkHttpClient(): OkHttpClient {
+        val okHttpClient: OkHttpClient.Builder = OkHttpClient().newBuilder()
         okHttpClient.connectTimeout(connectTimeout, TimeUnit.SECONDS)
         okHttpClient.readTimeout(readTimeout, TimeUnit.SECONDS)
         okHttpClient.writeTimeout(writeTimeout, TimeUnit.SECONDS)

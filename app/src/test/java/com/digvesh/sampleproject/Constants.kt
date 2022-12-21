@@ -12,4 +12,5 @@ object Constants {
     const val text = "Dummy Support Text"
     const val errorRetrievingData = "Error in retrieving data"
     const val errorString = "error"
+    const val networkErrorCode = 500
 }

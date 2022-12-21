@@ -3,10 +3,10 @@ package com.digvesh.sampleproject.data.repository
 import com.digvesh.sampleproject.Constants.errorString
 import com.digvesh.sampleproject.Constants.userId
 import com.digvesh.sampleproject.data.api.UserDataService
-import com.digvesh.sampleproject.data.mapper.contract.UserListAPIResponseMapper
+import com.digvesh.sampleproject.data.mapper.UserListAPIResponseMapper
 import com.digvesh.sampleproject.data.model.User
 import com.digvesh.sampleproject.data.model.UsersListResponse
-import com.digvesh.sampleproject.data.repository.contract.UserDataRepository
+import com.digvesh.sampleproject.domain.contract.UserDataRepository
 import com.digvesh.sampleproject.domain.model.UserInfo
 import com.digvesh.sampleproject.presentation.CoroutineScopeTestWatcher
 import io.mockk.MockKAnnotations
@@ -73,6 +73,13 @@ class UserDataRepositoryImplTest : TestCase() {
         }
     }
 
+    fun testAPIUsersListIOError() {
+        runTest {
+            val err = Throwable(errorString)
+            coEvery { userDataService.getUsers(1) } throws (err)
+            assertNull(userDataRepository.getUserList(1).first().result)
+        }
+    }
 
     fun testAPIGetUserByIdSuccess() {
         runTest {
@@ -96,6 +103,14 @@ class UserDataRepositoryImplTest : TestCase() {
             coEvery { response.message() } returns errorString
             coEvery { userDataService.getUserById(id) } returns response
             assertEquals(errorString, userDataRepository.getUserById(id).first().msg)
+        }
+    }
+
+    fun testAPIUserByIdIOError() {
+        runTest {
+            val err = Throwable(errorString)
+            coEvery { userDataService.getUserById(1) } throws (err)
+            assertNull(userDataRepository.getUserById(1).first().result)
         }
     }
 }

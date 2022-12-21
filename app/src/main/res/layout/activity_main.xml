@@ -35,4 +35,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:navGraph="@navigation/activity_main_nav_graph" />
+
+    <include
+        android:id="@+id/loading_view"
+        layout="@layout/progress_view" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

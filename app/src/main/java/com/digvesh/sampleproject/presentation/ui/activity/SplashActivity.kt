@@ -3,7 +3,7 @@ package com.digvesh.sampleproject.presentation.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.digvesh.core.presentation.ui.BaseActivity
+import com.digvesh.core.presentation.ui.activity.BaseActivity
 import com.digvesh.sampleproject.core.Constants.SPLASH_DELAY_MILLIS
 import com.digvesh.sampleproject.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay

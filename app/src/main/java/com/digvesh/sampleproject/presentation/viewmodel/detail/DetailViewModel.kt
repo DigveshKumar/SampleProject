@@ -2,16 +2,12 @@ package com.digvesh.sampleproject.presentation.viewmodel.detail
 
 import android.content.Context
 import androidx.lifecycle.viewModelScope
-import com.digvesh.core.presentation.BaseViewModel
 import com.digvesh.core.presentation.ui.ViewState
+import com.digvesh.core.presentation.ui.viewmodel.BaseViewModel
 import com.digvesh.network.client.ApiResult
-import com.digvesh.sampleproject.R
 import com.digvesh.sampleproject.domain.model.UserInfo
-import com.digvesh.sampleproject.domain.usecase.detail.contract.UserDetailUseCase
+import com.digvesh.sampleproject.domain.usecase.detail.UserDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,10 +15,6 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val useCase: UserDetailUseCase
 ) : BaseViewModel() {
-    private val _viewState = MutableStateFlow<ViewState<UserInfo>>(
-        ViewState.StateLoading(UserInfo())
-    )
-    val viewState = _viewState.asStateFlow()
 
     fun fetchUserDetails(context: Context, userId: Int) {
         viewModelScope.launch {
@@ -31,19 +23,24 @@ class DetailViewModel @Inject constructor(
     }
 
     private suspend fun fetchUserDetail(context: Context, userId: Int) {
-        useCase.getUserById(userId).collectLatest {
+        useCase.invoke(userId).collect {
             when (it) {
                 is ApiResult.Success ->
                     it.result?.let { user ->
-                        _viewState.value =
+                        viewStateFlow.value =
                             ViewState.StateSuccess(user)
+                    } ?: kotlin.run {
+                        viewStateFlow.value = ViewState.StateError(
+                            UserInfo(),
+                            it.msg ?: processErrorMessage(it.errorCode, context)
+                        )
                     }
-                is ApiResult.Fail -> _viewState.value =
+                is ApiResult.Fail -> viewStateFlow.value =
                     ViewState.StateError(
                         UserInfo(),
-                        it.msg ?: context.getString(R.string.data_error)
+                        it.msg ?: processErrorMessage(it.errorCode, context)
                     )
-                is ApiResult.Pending -> _viewState.value = ViewState.StateLoading(UserInfo())
+                is ApiResult.Pending -> viewStateFlow.value = ViewState.StateLoading(true)
             }
         }
     }
