@@ -19,12 +19,13 @@ import com.digvesh.sampleproject.presentation.ui.adapter.UserListAdapter
 import com.digvesh.sampleproject.presentation.viewmodel.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel>() {
     private lateinit var binding: FragmentHomeBinding
     private var page: Int = 1
-    private val userListAdapter = UserListAdapter()
+    @Inject lateinit var userListAdapter : UserListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,19 +58,20 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun fetchData() {
         lifecycleScope.launch {
-            viewModel.fetchUsersList(requireContext(), page)
+            viewModel.fetchUsersList(page)
             collectDataFromStateFlow(this)
         }
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun handleSuccessState(result: Any) {
         handleLoadingState(false)
         updateUI(result as List<UserInfo>)
     }
 
-    override fun handleErrorState(errorMsg: String) {
+    override fun handleErrorState(errorCode: Int) {
         handleLoadingState(false)
-        showToast(errorMsg)
+        showToast(processErrorMessage(errorCode,requireContext()))
     }
 
     override fun handleLoadingState(isLoading: Boolean) {

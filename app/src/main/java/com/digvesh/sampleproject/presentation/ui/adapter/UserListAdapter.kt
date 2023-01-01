@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.digvesh.sampleproject.domain.model.UserInfo
 import com.digvesh.sampleproject.presentation.ui.adapter.viewholder.UserListItemViewHolder
+import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
-class UserListAdapter : RecyclerView.Adapter<UserListItemViewHolder>() {
+@FragmentScoped
+class UserListAdapter @Inject constructor() : RecyclerView.Adapter<UserListItemViewHolder>() {
 
     lateinit var onClickListener: OnClickListener
 

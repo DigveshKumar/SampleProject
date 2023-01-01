@@ -1,6 +1,5 @@
 package com.digvesh.sampleproject.presentation.viewmodel.home
 
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.core.presentation.ui.viewmodel.BaseViewModel
@@ -16,19 +15,20 @@ class HomeViewModel @Inject constructor(
     private val useCase: UserListUseCase
 ) : BaseViewModel() {
 
-    fun fetchUsersList(context: Context, page: Int) {
+    fun fetchUsersList(page: Int) {
         viewModelScope.launch {
-            fetchUserList(context, page)
+            fetchUserList(page)
         }
     }
 
-    private suspend fun fetchUserList(context: Context, page: Int) {
+    private suspend fun fetchUserList(page: Int) {
         useCase.invoke(page).collect {
             when (it) {
                 is ApiResult.Fail -> viewStateFlow.value =
                     ViewState.StateError(
                         listOf<UserInfo>(),
-                        it.msg ?: processErrorMessage(it.errorCode, context)
+                        it.msg?:"",
+                        it.errorCode
                     )
                 is ApiResult.Success ->
                     it.result?.let { list ->
@@ -37,7 +37,8 @@ class HomeViewModel @Inject constructor(
                     } ?: kotlin.run {
                         viewStateFlow.value = ViewState.StateError(
                             listOf<UserInfo>(),
-                            it.msg ?: processErrorMessage(it.errorCode, context)
+                            it.msg ?: "",
+                            it.errorCode
                         )
                     }
                 is ApiResult.Pending -> viewStateFlow.value = ViewState.StateLoading(true)

@@ -1,6 +1,5 @@
 package com.digvesh.sampleproject.presentation
 
-import android.content.Context
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.Constants.errorRetrievingData
 import com.digvesh.sampleproject.Constants.networkErrorCode
@@ -10,7 +9,6 @@ import com.digvesh.sampleproject.presentation.viewmodel.home.HomeViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import junit.framework.TestCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -49,8 +47,7 @@ class HomeViewModelTest : TestCase() {
             coEvery { userListUseCase.invoke(1) } returns (flow {
                 emit(ApiResult.Success(list))
             })
-            val context = mockk<Context>()
-            viewModel.fetchUsersList(context, 1)
+            viewModel.fetchUsersList(1)
         }
         assertEquals(list, viewModel.viewState.value.result)
     }
@@ -60,12 +57,7 @@ class HomeViewModelTest : TestCase() {
             coEvery { userListUseCase.invoke(1) } returns (flow {
                 emit(ApiResult.Success(null))
             })
-            val context = mockk<Context>()
-            coEvery {
-                context.getString(any())
-            } returns errorRetrievingData
-
-            viewModel.fetchUsersList(context, 1)
+            viewModel.fetchUsersList(1)
         }
         assertEquals(0, (viewModel.viewState.value.result as List<*>).size)
     }
@@ -75,8 +67,7 @@ class HomeViewModelTest : TestCase() {
             coEvery { userListUseCase.invoke(1) } returns (flow {
                 emit(ApiResult.Fail(networkErrorCode, errorRetrievingData))
             })
-            val context = mockk<Context>()
-            viewModel.fetchUsersList(context, 1)
+            viewModel.fetchUsersList(1)
         }
         assertEquals(errorRetrievingData, viewModel.viewState.value.msg)
     }
@@ -86,8 +77,7 @@ class HomeViewModelTest : TestCase() {
             coEvery { userListUseCase.invoke(1) } returns (flow {
                 emit(ApiResult.Pending())
             })
-            val context = mockk<Context>()
-            viewModel.fetchUsersList(context, 1)
+            viewModel.fetchUsersList(1)
         }
         assertTrue(viewModel.viewState.value.isLoading)
     }

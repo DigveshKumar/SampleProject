@@ -1,6 +1,5 @@
 package com.digvesh.sampleproject.presentation.viewmodel.detail
 
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import com.digvesh.core.presentation.ui.ViewState
 import com.digvesh.core.presentation.ui.viewmodel.BaseViewModel
@@ -16,13 +15,13 @@ class DetailViewModel @Inject constructor(
     private val useCase: UserDetailUseCase
 ) : BaseViewModel() {
 
-    fun fetchUserDetails(context: Context, userId: Int) {
+    fun fetchUserDetails(userId: Int) {
         viewModelScope.launch {
-            fetchUserDetail(context, userId)
+            fetchUserDetail(userId)
         }
     }
 
-    private suspend fun fetchUserDetail(context: Context, userId: Int) {
+    private suspend fun fetchUserDetail(userId: Int) {
         useCase.invoke(userId).collect {
             when (it) {
                 is ApiResult.Success ->
@@ -32,13 +31,15 @@ class DetailViewModel @Inject constructor(
                     } ?: kotlin.run {
                         viewStateFlow.value = ViewState.StateError(
                             UserInfo(),
-                            it.msg ?: processErrorMessage(it.errorCode, context)
+                            it.msg ?: "",
+                            it.errorCode
                         )
                     }
                 is ApiResult.Fail -> viewStateFlow.value =
                     ViewState.StateError(
                         UserInfo(),
-                        it.msg ?: processErrorMessage(it.errorCode, context)
+                        it.msg ?: "",
+                        it.errorCode
                     )
                 is ApiResult.Pending -> viewStateFlow.value = ViewState.StateLoading(true)
             }

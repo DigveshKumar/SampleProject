@@ -43,14 +43,14 @@ class DetailFragment : BaseFragment<DetailViewModel>() {
 
     private fun fetchData(userId: Int) {
         lifecycleScope.launch {
-            viewModel.fetchUserDetails(requireContext(), userId)
+            viewModel.fetchUserDetails(userId)
             collectDataFromStateFlow(this)
         }
     }
 
-    override fun handleErrorState(errorMsg: String) {
+    override fun handleErrorState(errorCode: Int) {
         handleLoadingState(false)
-        showToast(errorMsg)
+        showToast(processErrorMessage(errorCode,requireContext()))
     }
 
     private fun updateUI(data: UserInfo) {

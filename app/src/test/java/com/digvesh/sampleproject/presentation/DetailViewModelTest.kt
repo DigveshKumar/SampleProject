@@ -1,6 +1,5 @@
 package com.digvesh.sampleproject.presentation
 
-import android.content.Context
 import com.digvesh.network.client.ApiResult
 import com.digvesh.sampleproject.Constants.errorRetrievingData
 import com.digvesh.sampleproject.Constants.networkErrorCode
@@ -45,48 +44,40 @@ class DetailViewModelTest : TestCase() {
 
     fun testApiGetUserDetailSuccess() {
         runTest {
-            val context = mockk<Context>()
             coEvery { userDetailUseCase.invoke(1) } returns (flow {
                 val userInfo = mockk<UserInfo>()
                 coEvery { userInfo.id } returns 1
                 emit(ApiResult.Success(userInfo))
             })
-            viewModel.fetchUserDetails(context, 1)
+            viewModel.fetchUserDetails(1)
         }
         assertEquals(1, (viewModel.viewState.value.result as UserInfo).id)
     }
 
     fun testApiGetUserDetailSuccessButUserNull() {
         runTest {
-            val context = mockk<Context>()
-            coEvery {
-                context.getString(any())
-            } returns errorRetrievingData
             coEvery { userDetailUseCase.invoke(1) } returns (flow {
-                val userInfo = mockk<UserInfo>()
                 emit(ApiResult.Success(null))
             })
-            viewModel.fetchUserDetails(context, 1)
+            viewModel.fetchUserDetails(1)
         }
         assertEquals(-1, (viewModel.viewState.value.result as UserInfo).id)
     }
 
     fun testApiGetUserDetailFail() {
         runTest {
-            val context = mockk<Context>()
             coEvery { userDetailUseCase.invoke(userId) } returns (flow {
                 emit(ApiResult.Fail(networkErrorCode, errorRetrievingData))
             })
-            viewModel.fetchUserDetails(context, userId)
+            viewModel.fetchUserDetails(userId)
         }
         assertEquals(errorRetrievingData, viewModel.viewState.value.msg)
     }
 
     fun testApiGetUserDetailLoading() {
         runTest {
-            val context = mockk<Context>()
             coEvery { userDetailUseCase.invoke(userId) } returns (flow { emit(ApiResult.Pending()) })
-            viewModel.fetchUserDetails(context, userId)
+            viewModel.fetchUserDetails(userId)
         }
         assertTrue(viewModel.viewState.value.isLoading)
     }
