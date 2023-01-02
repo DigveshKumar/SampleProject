@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.digvesh.core.extensions.putBundleInt
@@ -58,8 +60,10 @@ class HomeFragment : BaseFragment<HomeViewModel>() {
 
     private fun fetchData() {
         lifecycleScope.launch {
-            viewModel.fetchUsersList(page)
-            collectDataFromStateFlow(this)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fetchUsersList(page)
+                collectDataFromStateFlow(this)
+            }
         }
     }
 

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.digvesh.core.extensions.loadImage
 import com.digvesh.core.extensions.showToast
 import com.digvesh.core.presentation.ui.fragment.BaseFragment
@@ -43,8 +45,10 @@ class DetailFragment : BaseFragment<DetailViewModel>() {
 
     private fun fetchData(userId: Int) {
         lifecycleScope.launch {
-            viewModel.fetchUserDetails(userId)
-            collectDataFromStateFlow(this)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.fetchUserDetails(userId)
+                collectDataFromStateFlow(this)
+            }
         }
     }
 
