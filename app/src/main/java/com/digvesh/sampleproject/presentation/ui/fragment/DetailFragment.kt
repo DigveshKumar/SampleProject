@@ -59,7 +59,7 @@ class DetailFragment : BaseFragment<DetailViewModel>() {
 
     private fun updateUI(data: UserInfo) {
         with(binding) {
-            loadImage(context, data.avatarImage, userImage)
+            userImage.loadImage(data.avatarImage)
             userName.text = data.displayName
             userEmail.text = data.email
         }

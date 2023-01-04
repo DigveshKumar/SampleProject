@@ -25,7 +25,7 @@ class UserListItemViewHolder(
     private fun updateViews(user: UserInfo) {
         this.user = user
         binding.userName.text = user.displayName
-        loadImage(itemView.context, user.avatarImage, binding.avatarImage)
+        binding.avatarImage.loadImage(user.avatarImage)
         binding.root.setOnClickListener {
             onClickListener.onClick(user.id)
         }
