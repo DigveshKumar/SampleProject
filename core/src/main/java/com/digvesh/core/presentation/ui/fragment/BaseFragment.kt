@@ -21,7 +21,7 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
     fun collectDataFromStateFlow(coroutineScope: CoroutineScope) {
         coroutineScope.launch {
-            viewModel.viewStateFlow.collect { viewState ->
+            viewModel.viewState.collect { viewState ->
                 when (viewState) {
                     is ViewState.StateError -> handleErrorState(viewState.errorCode)
                     is ViewState.StateLoading -> handleLoadingState(viewState.isLoading)

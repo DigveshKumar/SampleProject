@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel : ViewModel() {
 
-    val viewStateFlow = MutableStateFlow<ViewState<Any>>(
+    protected val viewStateFlow = MutableStateFlow<ViewState<Any>>(
         ViewState.StateLoading(true)
     )
 
